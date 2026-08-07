@@ -20,7 +20,7 @@ Both are **pure Python**. The Android APK is compiled from the Kivy app in
 
 Grab `ytprime-1.0.0-arm64-v8a-debug.apk` (~21 MB):
 
-- **Direct:** [`dist/ytprime-1.0.0-arm64-v8a-debug.apk`](dist/ytprime-1.0.0-arm64-v8a-debug.apk)
+- **Direct:** [https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.0-arm64-v8a-debug.apk](https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.0-arm64-v8a-debug.apk)
 - **Release:** [github.com/ayu-haker/yt-prime/releases/latest](https://github.com/ayu-haker/yt-prime/releases/latest)
 
 Then, on your phone:
