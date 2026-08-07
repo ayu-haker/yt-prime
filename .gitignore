@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Desktop app runtime data
+desktop/ytprime-profile/
+
+# Mobile build artifacts (Buildozer)
+mobile/bin/
+mobile/.buildozer/
+mobile/*.log
