@@ -8,7 +8,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,ttf
 source.include_patterns = icon.png
 
-version = 1.0.0
+version = 1.0.2
 requirements = python3,kivy
 
 orientation = portrait
@@ -24,7 +24,7 @@ android.build_tools = 34.0.0
 android.accept_sdk_license = True
 android.archs = arm64-v8a, armeabi-v7a
 android.allow_backup = True
-android.permissions = INTERNET
+android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE
 
 # iOS is not supported by this project.
 ios.codesign.debug = automatic
