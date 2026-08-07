@@ -2,17 +2,34 @@
 
 Ad-free YouTube, on your phone and on your desktop.
 
-A small project with two apps that both wrap the real YouTube web app and
-apply a **uBlock-Origin-style ad blocker** (block ad networks, strip ad DOM,
+Two apps that both wrap the real YouTube web app and apply a
+**uBlock-Origin-style ad blocker** (strip ad DOM, block ad networks,
 auto-click skip buttons):
 
 | App | Platform | Built with | How to get it |
 |-----|----------|------------|---------------|
-| **Mobile** | Android | Python — Kivy + Buildozer (python-for-android) | Install the APK from **GitHub Releases** |
+| **Mobile** | Android 5.0+ | Python — Kivy + Buildozer | **Download the ready APK** (below) |
 | **Desktop** | Windows/Linux | Python — PySide6 QtWebEngine | `pip install -r requirements.txt && python main.py` |
 
-Both are **pure Python**. The APK is compiled from the Kivy app in `mobile/`
-by CI on every `v*` tag — no Android Studio or Java needed.
+Both are **pure Python**. The Android APK is compiled from the Kivy app in
+`mobile/` by CI on every `v*` tag — no Android Studio or Java needed.
+
+---
+
+## 📥 Download the APK
+
+Grab `ytprime-1.0.0-arm64-v8a-debug.apk` (~21 MB):
+
+- **Direct:** [`dist/ytprime-1.0.0-arm64-v8a-debug.apk`](dist/ytprime-1.0.0-arm64-v8a-debug.apk)
+- **Release:** [github.com/ayu-haker/yt-prime/releases/latest](https://github.com/ayu-haker/yt-prime/releases/latest)
+
+Then, on your phone:
+1. Tap the downloaded `.apk` file.
+2. Allow **"install from unknown sources"** when asked.
+3. Open **yt-prime**, log in, watch — ads gone.
+
+> The APK lives directly in `dist/` so you never need to wait on a
+> build/release page. New builds land there automatically on every tag.
 
 ---
 
@@ -20,15 +37,7 @@ by CI on every `v*` tag — no Android Studio or Java needed.
 
 An installable APK that opens YouTube full-screen in an Android WebView
 (with a desktop-site toggle in the menu) and continuously removes ads.
-
-### Install
-
-1. Grab `ytprime-*.apk` from the latest **Release** on GitHub — or directly
-   from `dist/` in this repo.
-2. Open it on your phone → allow "install from unknown sources" → Install.
-3. Open **yt-prime**, log in, watch — ads gone.
-
-No Play Store, no root, no accounts, and the app itself is ~25 MB.
+No Play Store, no root, no account required.
 
 ### In-app menu
 
@@ -38,7 +47,7 @@ No Play Store, no root, no accounts, and the app itself is ~25 MB.
 
 ### How it blocks ads
 
-- Injected stylesheet hides every known ad element
+- An injected stylesheet hides every known ad element
   (`ytd-display-ad-renderer`, `ytd-in-feed-ad-layout-renderer`, player
   overlays, masthead/promoted cards…).
 - A `MutationObserver` + 2 s sweep strips ad nodes as YouTube adds them and
@@ -55,7 +64,8 @@ buildozer -v android debug        # needs Docker or the p4a toolchain
 # APK appears in mobile/bin/
 ```
 
-CI builds it for `arm64-v8a` and `armeabi-v7a` (Android 8.0+).
+CI builds `arm64-v8a` automatically on every `v*` tag
+(`.github/workflows/release.yml`).
 
 ---
 
@@ -98,6 +108,7 @@ python -m pytest -q     # 10 tests
 
 ```
 yt-prime/
+├── dist/                Ready-to-install APK (official release)
 ├── desktop/             PySide6 desktop app
 │   ├── main.py
 │   ├── requirements.txt
