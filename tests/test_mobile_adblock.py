@@ -1,11 +1,17 @@
-"""Unit tests for the mobile (Kivy/Buildozer) ad-block script builder."""
+"""Unit tests for the mobile ad-block script builder."""
 
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mobile"))
+ROOT = os.path.join(os.path.dirname(__file__), "..")
+
+sys.path.insert(0, os.path.join(ROOT, "mobile"))
 
 from adblock import AD_SELECTORS, SKIP_SELECTORS, build_content_script
+
+ASSET = os.path.join(
+    ROOT, "mobile", "app", "src", "main", "assets", "adblock.js"
+)
 
 
 def test_script_builds_valid_js():
@@ -25,7 +31,11 @@ def test_all_selectors_referenced():
         assert sel in script
 
 
-def test_no_trailing_placeholder():
+def test_asset_in_sync():
+    with open(ASSET) as handle:
+        assert handle.read() == build_content_script()
+
+
+def test_idempotent_guard():
     script = build_content_script()
-    assert "{" not in script.split("var css = ")[1][:40] or True  # built, not templated
-    assert "%" not in script
+    assert "__ytprimeAdBlock" in script

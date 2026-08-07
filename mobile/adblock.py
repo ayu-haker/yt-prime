@@ -1,7 +1,8 @@
-"""Ad-block rules + content script for the mobile (Kivy/Buildozer) app.
+"""Ad-block rules + content script for the mobile (native Android WebView) app.
 
-Pure Python (no kivy/jnius import) so it can be unit-tested on the desktop.
-The produced script is evaluated in the Android WebView on a timer.
+Pure Python (no Android imports) so it can be unit-tested on the desktop.
+The produced script is evaluated in the WebView on page load and on a timer;
+it is written to app/src/main/assets/adblock.js so the native app ships it.
 """
 
 AD_SELECTORS = [
@@ -52,6 +53,8 @@ def build_content_script() -> str:
     return f"""(
 function () {{
   "use strict";
+  if (window.__ytprimeAdBlock) return;
+  window.__ytprimeAdBlock = true;
   var css = {_js(css)};
   var skip = "{skip_query}";
   var adQuery = {_js(ad_query)};
@@ -86,3 +89,9 @@ function () {{
   setInterval(sweep, 2000);
 }})();
 """
+
+
+def write_asset(path: str) -> None:
+    """Write the content script to an asset file shipped inside the APK."""
+    with open(path, "w") as handle:
+        handle.write(build_content_script())

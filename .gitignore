@@ -7,7 +7,8 @@ venv/
 # Desktop app runtime data
 desktop/ytprime-profile/
 
-# Mobile build artifacts (Buildozer)
-mobile/bin/
-mobile/.buildozer/
-mobile/*.log
+# Android/Gradle build artifacts
+mobile/app/build/
+mobile/.gradle/
+mobile/local.properties
+*.apk
