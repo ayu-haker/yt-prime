@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
     private WebView webView;
     private boolean adBlockEnabled = true;
     private boolean desktopSite = false;
+    private boolean destroyed = false;
     private String contentScript = "";
 
     @Override
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
     private final Runnable reinject = new Runnable() {
         @Override
         public void run() {
-            if (webView != null && !webView.isDestroyed()) {
+            if (webView != null && !destroyed) {
                 injectAdBlock();
                 webView.postDelayed(this, REINJECT_MS);
             }
@@ -133,6 +134,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        destroyed = true;
         if (webView != null) {
             webView.removeCallbacks(reinject);
             webView.destroy();
