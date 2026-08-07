@@ -18,9 +18,9 @@ Both are **pure Python**. The Android APK is compiled from the Kivy app in
 
 ## 📥 Download the APK
 
-Grab `ytprime-1.0.0-arm64-v8a-debug.apk` (~21 MB):
+Grab `ytprime-1.0.2-arm64-v8a-debug.apk` (~21 MB):
 
-- **Direct:** [https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.0-arm64-v8a-debug.apk](https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.0-arm64-v8a-debug.apk)
+- **Direct:** [https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.2-arm64-v8a-debug.apk](https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.2-arm64-v8a-debug.apk)
 - **Release:** [github.com/ayu-haker/yt-prime/releases/latest](https://github.com/ayu-haker/yt-prime/releases/latest)
 
 Then, on your phone:
@@ -28,8 +28,8 @@ Then, on your phone:
 2. Allow **"install from unknown sources"** when asked.
 3. Open **yt-prime**, log in, watch — ads gone.
 
-> The APK lives directly in `dist/` so you never need to wait on a
-> build/release page. New builds land there automatically on every tag.
+> The APK also lives in `dist/` so the direct link always works — no need to
+> visit the build/release page.
 
 ---
 
