@@ -23,7 +23,8 @@ An installable APK that opens YouTube full-screen in an Android WebView
 
 ### Install
 
-1. Grab `ytprime-*.apk` from the latest **Release** on GitHub.
+1. Grab `ytprime-*.apk` from the latest **Release** on GitHub — or directly
+   from `dist/` in this repo.
 2. Open it on your phone → allow "install from unknown sources" → Install.
 3. Open **yt-prime**, log in, watch — ads gone.
 
