@@ -16,6 +16,7 @@ jobs:
       - name: Build APK with Buildozer (kivy/buildozer image)
         run: |
           printf 'y\n' | docker run --rm --interactive \
+            --workdir /app \
             --volume "$PWD/mobile":/app \
             --volume buildozer-cache:/home/user/.buildozer \
             ghcr.io/kivy/buildozer:latest \
