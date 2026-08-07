@@ -19,9 +19,9 @@ your machine. The desktop app is pure Python.
 
 ## 📥 Download the APK
 
-Grab `ytprime-1.0.2-arm64-v8a-debug.apk` (~21 MB):
+Grab `ytprime-1.1.0.apk` (~40 KB — works on any Android 5.0+ phone):
 
-- **Direct:** [https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.2-arm64-v8a-debug.apk](https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.0.2-arm64-v8a-debug.apk)
+- **Direct:** [https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.1.0.apk](https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.1.0.apk)
 - **Release:** [github.com/ayu-haker/yt-prime/releases/latest](https://github.com/ayu-haker/yt-prime/releases/latest)
 
 Then, on your phone:
