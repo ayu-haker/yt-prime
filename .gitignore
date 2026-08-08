@@ -13,4 +13,4 @@ mobile/.gradle/
 mobile/local.properties
 # Official release APK is tracked in dist/ (add new ones explicitly)
 dist/*.apk
-!dist/ytprime-1.1.0.apk
+!dist/ytprime-1.1.1.apk
