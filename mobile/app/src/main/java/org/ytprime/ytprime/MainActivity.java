@@ -20,6 +20,9 @@ import java.nio.charset.StandardCharsets;
 public class MainActivity extends Activity {
 
     private static final String HOME = "https://www.youtube.com/";
+    private static final String MOBILE_UA =
+            "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 "
+            + "(KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36";
     private static final String DESKTOP_UA =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
             + "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
@@ -44,14 +47,28 @@ public class MainActivity extends Activity {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
         settings.setSupportMultipleWindows(false);
+        settings.setUserAgentString(MOBILE_UA);
 
+        CookieManager.getInstance().setAcceptCookie(true);
         CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
 
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return false;  // keep all navigation (incl. Google sign-in) inside the WebView
+            }
+
+            @Override
+            @SuppressWarnings("deprecation")
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
                 String url = request.getUrl().toString();
@@ -183,11 +200,7 @@ public class MainActivity extends Activity {
 
     private void applyUserAgent() {
         WebSettings settings = webView.getSettings();
-        if (desktopSite) {
-            settings.setUserAgentString(DESKTOP_UA);
-        } else {
-            settings.setUserAgentString(WebSettings.getDefaultUserAgent(this));
-        }
+        settings.setUserAgentString(desktopSite ? DESKTOP_UA : MOBILE_UA);
         webView.reload();
     }
 }
