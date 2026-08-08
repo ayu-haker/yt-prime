@@ -22,10 +22,10 @@ No Play Store, no root, no account required.
 
 ## 📥 Download the APK
 
-Grab `ytprime-1.1.2.apk` (~40 KB):
+Grab `ytprime-1.1.3.apk` (~40 KB):
 
-- **Direct:** [https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.1.2.apk](https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.1.2.apk)
-- **Release:** [https://github.com/ayu-haker/yt-prime/releases/download/v1.1.2/ytprime-1.1.2.apk](https://github.com/ayu-haker/yt-prime/releases/download/v1.1.2/ytprime-1.1.2.apk)
+- **Direct:** [https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.1.3.apk](https://github.com/ayu-haker/yt-prime/raw/main/dist/ytprime-1.1.3.apk)
+- **Release:** [https://github.com/ayu-haker/yt-prime/releases/download/v1.1.3/ytprime-1.1.3.apk](https://github.com/ayu-haker/yt-prime/releases/download/v1.1.3/ytprime-1.1.3.apk)
 
 Then, on your phone:
 
