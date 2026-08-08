@@ -3,4 +3,6 @@
     <string name="action_refresh">Refresh</string>
     <string name="action_adblock">Ad-block</string>
     <string name="action_desktop">Desktop site</string>
+    <string name="action_history">History</string>
+    <string name="action_clear_history">Clear history</string>
 </resources>

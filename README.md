@@ -51,6 +51,8 @@ auto-clicks skip buttons).
 - **Refresh** — reload the page.
 - **Ad-block: ON/OFF** — toggle the filter (takes effect on reload).
 - **Desktop site: ON/OFF** — switch the desktop YouTube layout in the phone.
+- **History** — every video you open is saved locally (title + time); tap an
+  entry to play it again, or use **Clear history** to wipe it.
 
 ### How it blocks ads
 

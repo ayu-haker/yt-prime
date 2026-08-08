@@ -16,4 +16,12 @@
         android:title="@string/action_desktop"
         android:checkable="true" />
 
+    <item
+        android:id="@+id/action_history"
+        android:title="@string/action_history" />
+
+    <item
+        android:id="@+id/action_clear_history"
+        android:title="@string/action_clear_history" />
+
 </menu>

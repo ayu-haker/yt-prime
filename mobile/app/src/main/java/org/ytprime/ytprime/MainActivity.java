@@ -1,6 +1,8 @@
 package org.ytprime.ytprime;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
@@ -31,8 +33,10 @@ public class MainActivity extends Activity {
             + "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
     private static final long REINJECT_MS = 2000;
+    private static final int REQUEST_HISTORY = 100;
 
     private WebView webView;
+    private HistoryStore history;
     private boolean adBlockEnabled = true;
     private boolean desktopSite = false;
     private boolean destroyed = false;
@@ -44,6 +48,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         contentScript = readAsset("adblock.js");
+        history = new HistoryStore(this);
 
         webView = new WebView(this);
         setContentView(webView);
@@ -109,6 +114,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                history.add(url, view.getTitle());
                 injectAdBlock();
             }
         });
@@ -236,7 +242,31 @@ public class MainActivity extends Activity {
             applyUserAgent();
             return true;
         }
+        if (id == R.id.action_history) {
+            startActivityForResult(new Intent(this, HistoryActivity.class), REQUEST_HISTORY);
+            return true;
+        }
+        if (id == R.id.action_clear_history) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Clear history")
+                    .setMessage("Remove all watched videos from history?")
+                    .setPositiveButton("Clear", (d, w) -> history.clear())
+                    .setNegativeButton("Cancel", null)
+                    .show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_HISTORY && resultCode == RESULT_OK && data != null) {
+            String url = data.getStringExtra("url");
+            if (url != null) {
+                webView.loadUrl(url);
+            }
+        }
     }
 
     private void applyUserAgent() {
