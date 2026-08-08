@@ -1,10 +1,13 @@
 package org.ytprime.ytprime;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.CookieManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -34,6 +37,7 @@ public class MainActivity extends Activity {
     private boolean desktopSite = false;
     private boolean destroyed = false;
     private String contentScript = "";
+    private String currentHost = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +55,25 @@ public class MainActivity extends Activity {
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setUseWideViewPort(true);
         settings.setLoadWithOverviewMode(true);
-        settings.setSupportMultipleWindows(false);
+        settings.setSupportMultipleWindows(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setUserAgentString(MOBILE_UA);
 
         CookieManager.getInstance().setAcceptCookie(true);
         CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onCreateWindow(WebView view, boolean isDialog,
+                                          boolean isUserGesture, Message resultMsg) {
+                // YouTube's sign-in button opens accounts.google.com in a popup;
+                // route it back into the main WebView so the flow can complete.
+                WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+                transport.setWebView(webView);
+                resultMsg.sendToTarget();
+                return true;
+            }
+        });
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -70,9 +88,20 @@ public class MainActivity extends Activity {
             }
 
             @Override
+            public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                try {
+                    currentHost = Uri.parse(url).getHost();
+                } catch (Exception ignored) {
+                    currentHost = "";
+                }
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
                 String url = request.getUrl().toString();
-                if (adBlockEnabled && isAdUrl(url)) {
+                // never interfere with Google's own sign-in pages
+                if (adBlockEnabled && !isGoogleAuthHost(currentHost) && isAdUrl(url)) {
                     return emptyResponse();
                 }
                 return super.shouldInterceptRequest(view, request);
@@ -116,6 +145,18 @@ public class MainActivity extends Activity {
                 || u.contains("googleadservices.com")
                 || u.contains("adservice.google.com")
                 || (u.contains("googlevideo.com") && u.contains("ad_signature"));
+    }
+
+    private static boolean isGoogleAuthHost(String host) {
+        if (host == null) {
+            return false;
+        }
+        return host.equals("accounts.google.com")
+                || host.equals("accounts.youtube.com")
+                || host.equals("myaccount.google.com")
+                || host.equals("consent.google.com")
+                || host.equals("ssl.gstatic.com")
+                || host.equals("www.gstatic.com");
     }
 
     private static WebResourceResponse emptyResponse() {
